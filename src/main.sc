@@ -1,18 +1,18 @@
 require: slotfilling/slotFilling.sc
   module = sys.zb-common
+
+require: common.js
+    module = sys.zb-common
+    
 theme: /
 
     state: Start
         q!: $regex</start>
-        a: Начнём.
-
-    state: Hello
-        intent!: /привет
-        a: Привет привет
-
-    state: Bye
-        intent!: /пока
-        a: Пока пока
+        a: Hello! Let's begin by reviewing your vocabulary. Please translate the following English words into Russian.
+        go!: /Translate
+        
+    state: Translate
+        a: Placeholder
 
     state: NoMatch
         event!: noMatch
