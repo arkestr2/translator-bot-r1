@@ -12,8 +12,10 @@ theme: /
         go!: /Translate
         
     state: Translate
-        a: Placeholder
-        script: 
+        script:
+            var words = $env.get("words", "default");
+            var word_to_translate = $env.words($jsapi.random(Object.keys(words).length)));
+        a: {{ word_to_translate }} 
 
     state: NoMatch
         event!: noMatch
