@@ -1,10 +1,10 @@
 function getRandomWord(){
-    return words[$jsapi.random(Object.keys(words).length)]
+    return WORDS[$jsapi.random(Object.keys(words).length)]
 }
 
 
 
-var words = [
+var WORDS = [
     "abandon",
     "ability",
     "able",
