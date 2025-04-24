@@ -6,7 +6,7 @@
   },
   "settings" : {
     "language" : "ru",
-    "spellingCorrection" : false,
+    "spellingCorrection" : true,
     "classificationAlgorithm" : "sts",
     "timezone" : "Europe/Moscow",
     "extendedSettings" : {
@@ -23,6 +23,44 @@
     }
   },
   "intents" : [ {
+    "path" : "/check",
+    "enabled" : true,
+    "shared" : false,
+    "phrases" : [ {
+      "text" : "@Перевод"
+    } ],
+    "classificationRules" : {
+      "refs" : [ {
+        "entityName" : "classRule_3542",
+        "predicate" : "CONTAINS_NOT"
+      }, {
+        "entityName" : "classRule_290",
+        "predicate" : "CONTAINS_NOT"
+      }, {
+        "entityName" : "classRule_8507",
+        "predicate" : "CONTAINS_NOT"
+      } ]
+    },
+    "patterns" : [ ],
+    "slots" : [ {
+      "name" : "input",
+      "entity" : "Перевод",
+      "required" : true,
+      "prompts" : [ ]
+    } ],
+    "priority" : 0
+  }, {
+    "path" : "/finish",
+    "enabled" : true,
+    "shared" : false,
+    "phrases" : [ ],
+    "classificationRules" : {
+      "refs" : [ ]
+    },
+    "patterns" : [ "~итог", "{давай закончим}", " {сколько правильных переводов}", "не хочу", "не буду", "надоело" ],
+    "slots" : [ ],
+    "priority" : 0
+  }, {
     "path" : "/пока",
     "enabled" : true,
     "shared" : false,
@@ -45,7 +83,83 @@
     },
     "priority" : 0
   } ],
-  "entities" : [ ],
+  "entities" : [ {
+    "entity" : {
+      "name" : "classRule_3542",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ " {сколько правильных переводов}" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "Перевод",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "(а*|б*|в*|г*|д*|е*|ё*|ж*|з*|и*|й*|к*|л*|м*|н*|о*|п*|р*|с*|т*|у*|ф*|х*|ц*|ч*|ш*|щ*|ъ*|ы*|ь*|э*|ю*|я*)" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "classRule_290",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "~итог" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "classRule_8507",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "{давай закончим}" ],
+      "value" : ""
+    } ]
+  } ],
   "enabledSystemEntities" : [ "duckling.number", "duckling.time", "duckling.duration", "duckling.phone-number", "duckling.email", "duckling.url" ],
   "spellerDictionary" : [ ],
   "systemEntities" : [ {

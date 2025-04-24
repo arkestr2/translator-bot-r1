@@ -10,6 +10,9 @@ theme: /
 
     state: Start
         q!: $regex</start>
+        script:
+            $session.correctCount = 0;
+            $session.wrongCount = 0;
         a: Hello! Let's begin by reviewing your vocabulary. Please translate the following English words into Russian.
         go!: /Translate
         
@@ -18,31 +21,57 @@ theme: /
             $session.currWord = getRandomWord();
             
         a: {{ $session.currWord }} 
-        go!: /Compare
         
     state: Compare
+        intent: /check
         script:
-            var t = getTranslation($session.currWord).then(function (res){
-                $session.responce = res[0];
-                for(var i=0; i < 5; i++){
-                    log($session.responce.meanings[i].translation.text); 
-                }
-            })
+            var input = $parseTree._input;
+            $session.isInputCorrect = false;
+            $session.translations = "";
+            var meanings = getTranslations($session.currWord);
+            log("__________________________");
+            log(meanings);
+            var limit = Math.min(5, meanings.length);
             
-    state: Correct
-        a: Correct! Nice
-        
-    state: Wrong
-        script:
-            getTranslation()
-        a: Wrong :( Some of the possible translations for "{{ word_to_translate }}" are:"
+            for(var i=0; i < limit; i++){
+                var currMeaning = meanings[i].trim().toLowerCase();
+                if (input === currMeaning){
+                    $session.isInputCorrect = true;
+                    break;
+                }
+                log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                log($session.translations);
+                $session.translations += "\n" + (i + 1) + ". " + currMeaning;
+            }
+        if: $session.isInputCorrect
+            go!: Correct
+        else: 
+            go!: Wrong
+            
+        state: Correct
+            a: Correct! Nice
+            script: 
+                $session.correctCount++;
+            go!: /NextWord
+            
+        state: Wrong
+            a: Wrong :( Some of the possible translations for "{{ $session.currWord }}" are: {{ $session.translations }}
+            script: 
+                $session.wrongCount++;
+            go!: /NextWord
 
     state: NextWord
-        a: NextWord
+        script:
+            $session.currWord = getRandomWord();
+        a: The next word is "{{$session.currWord}}"
         
     state: Result
-        a: Correct answers: {{ correct_count }}. Wrong answers: {{ wrong_count }}. Goodbye, see you later!
+        intent: /finish
+        a: Correct answers: {{ $session.correctCount }}. 
+            \nWrong answers: {{ $session.wrongCount }}.
+            \nGoodbye, see you later!
         
     state: NoMatch
         event!: noMatch
-        a: Я не понял. Вы сказали: {{$request.query}}
+        a: I don't think you typed in a word or a phrase. Your responce was "{{$request.query}}".
+            \nTry typing in the translation for the word "{{ $session.currWord }}".

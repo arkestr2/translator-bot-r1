@@ -1,15 +1,35 @@
 function getRandomWord(){
-    return WORDS[$jsapi.random(Object.keys(WORDS).length)]
+    return WORDS[$jsapi.random(WORDS.length)]
 }
 
-function getTranslation(word){
-return $http.get("https://dictionary.skyeng.ru/api/public/v1/words/search?search=${word}}&page=1&pageSize=1", {
-        timeout: 10000,
-        query:{
-            word: word
+function getTranslations(word){
+    var meanings = $http.get("https://dictionary.skyeng.ru/api/public/v1/words/search?search=${word}&page=1&pageSize=1", {
+            timeout: 10000,
+            query:{
+                word: word
+            }
+        }).data[0].meanings;
+        
+    log(meanings);
+    
+    for (var i = 0; i < meanings.length; i++){
+        meanings[i] = meanings[i].translation.text;
+    }
+    
+    for (var i = 0; i < Math.min(meanings.length, 5); i++){
+        log("---------------------------");
+        log(meanings[i]);
+        for (var j = 0; j < meanings[i].length; j++){
+            if (meanings[i][j] == ";" || meanings[i][j] == ","){
+              meanings.splice(i + 1, 0, meanings[i].substring(j + 1));
+              meanings[i] = meanings[i].substring(0, j);
+            }
         }
+    }
+    
+    return meanings.filter(function(item, pos) {
+        return meanings.indexOf(item) == pos;
     });
-
 }
 
 var WORDS = [
