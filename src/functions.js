@@ -2,6 +2,8 @@ function getRandomWord(){
     return words[$jsapi.random(Object.keys(words).length)]
 }
 
+
+
 var words = [
     "abandon",
     "ability",

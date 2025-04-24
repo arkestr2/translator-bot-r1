@@ -15,14 +15,22 @@ theme: /
         
     state: Translate
         script:
-            $session.gamno = getRandomWord();
+            $session.currWord = getRandomWord();
             
-        a: {{ $session.gamno }} 
+        a: {{ $session.currWord }} 
 
+    state: Correct
+        a: Correct! Nice
+        
+    state: Wrong
+        a: Wrong :( Some of the possible translations for "{{ word_to_translate }}" are:"
+
+    state: NextWord
+        a: NextWord
+        
+    state: Result
+        a: Correct answers: {{ correct_count }}. Wrong answers: {{ wrong_count }}. Goodbye, see you later!
+        
     state: NoMatch
         event!: noMatch
         a: Я не понял. Вы сказали: {{$request.query}}
-
-    state: Match
-        event!: match
-        a: {{$context.intent.answer}}
