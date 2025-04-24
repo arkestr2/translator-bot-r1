@@ -16,7 +16,7 @@ theme: /
     state: Translate
         script:
             $session.gamno = getRandomWord();
-            //var word_to_translate = $env.words[$jsapi.random(Object.keys(words).length)];
+            
         a: {{ $session.gamno }} 
 
     state: NoMatch
