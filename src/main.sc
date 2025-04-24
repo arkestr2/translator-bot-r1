@@ -15,7 +15,7 @@ theme: /
         
     state: Translate
         script:
-            $session.currWord = getRandomWord();
+            $reactions.answer(getRandomWord());
             
         a: {{ $session.currWord }} 
 
@@ -23,6 +23,8 @@ theme: /
         a: Correct! Nice
         
     state: Wrong
+        script:
+            getTranslation()
         a: Wrong :( Some of the possible translations for "{{ word_to_translate }}" are:"
 
     state: NextWord
