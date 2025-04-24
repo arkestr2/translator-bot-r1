@@ -22,8 +22,12 @@ theme: /
         
     state: Compare
         script:
-            var t = getTranslation($session.currWord)
-            log(t);
+            var t = getTranslation($session.currWord).then(function (res){
+                $session.responce = res[0];
+                for(var i=0; i < 5; i++){
+                    log($session.responce.meanings[i].translation.text); 
+                }
+            })
             
     state: Correct
         a: Correct! Nice

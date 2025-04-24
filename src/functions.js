@@ -3,7 +3,7 @@ function getRandomWord(){
 }
 
 function getTranslation(word){
-return $http.get("https://dictionary.skyeng.ru/api/public/v1/words/search?search={word}}&page=1&pageSize=1", {
+return $http.get("https://dictionary.skyeng.ru/api/public/v1/words/search?search=${word}}&page=1&pageSize=1", {
         timeout: 10000,
         query:{
             word: word
