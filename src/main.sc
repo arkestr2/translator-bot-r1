@@ -13,6 +13,7 @@ theme: /
         
     state: Translate
         a: Placeholder
+        script: 
 
     state: NoMatch
         event!: noMatch
