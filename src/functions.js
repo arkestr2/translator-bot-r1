@@ -1,5 +1,5 @@
 function getRandomWord(){
-    return WORDS[$jsapi.random(Object.keys(words).length)]
+    return WORDS[$jsapi.random(Object.keys(WORDS).length)]
 }
 
 function getTranslation(word){

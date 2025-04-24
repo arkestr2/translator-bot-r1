@@ -15,10 +15,16 @@ theme: /
         
     state: Translate
         script:
-            $reactions.answer(getRandomWord());
+            $session.currWord = getRandomWord();
             
         a: {{ $session.currWord }} 
-
+        go!: /Compare
+        
+    state: Compare
+        script:
+            var t = getTranslation($session.currWord)
+            log(t);
+            
     state: Correct
         a: Correct! Nice
         
