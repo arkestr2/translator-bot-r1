@@ -14,8 +14,9 @@ theme: /
     state: Translate
         script:
             var words = $env.get("words", "default");
+            $session.gamno = 1
             //var word_to_translate = $env.words[$jsapi.random(Object.keys(words).length)];
-        a: {{ words[0] }} 
+        a: {{ $session.gamno }} 
 
     state: NoMatch
         event!: noMatch
