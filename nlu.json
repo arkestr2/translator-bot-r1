@@ -39,6 +39,18 @@
       }, {
         "entityName" : "classRule_8507",
         "predicate" : "CONTAINS_NOT"
+      }, {
+        "entityName" : "classRule_1081",
+        "predicate" : "CONTAINS_NOT"
+      }, {
+        "entityName" : "classRule_8884",
+        "predicate" : "CONTAINS_NOT"
+      }, {
+        "entityName" : "classRule_2827",
+        "predicate" : "CONTAINS_NOT"
+      }, {
+        "entityName" : "classRule_1057",
+        "predicate" : "CONTAINS_NOT"
       } ]
     },
     "patterns" : [ ],
@@ -53,11 +65,17 @@
     "path" : "/finish",
     "enabled" : true,
     "shared" : false,
-    "phrases" : [ ],
+    "phrases" : [ {
+      "text" : "не хочу"
+    }, {
+      "text" : "не буду"
+    }, {
+      "text" : "устал"
+    } ],
     "classificationRules" : {
       "refs" : [ ]
     },
-    "patterns" : [ "~итог", "{давай закончим}", " {сколько правильных переводов}", "не хочу", "не буду", "надоело" ],
+    "patterns" : [ "~надоело", "~итог", "{давай закончим}", " {сколько правильных переводов}", "~хватит", "~конец" ],
     "slots" : [ ],
     "priority" : 0
   }, {
@@ -109,7 +127,7 @@
       "shared" : false,
       "type" : "annotation",
       "priority" : 1,
-      "noSpelling" : false,
+      "noSpelling" : true,
       "noMorph" : false,
       "phoneticSearch" : false,
       "fuzzySearch" : false,
@@ -118,7 +136,7 @@
     },
     "records" : [ {
       "type" : "pattern",
-      "rule" : [ "(а*|б*|в*|г*|д*|е*|ё*|ж*|з*|и*|й*|к*|л*|м*|н*|о*|п*|р*|с*|т*|у*|ф*|х*|ц*|ч*|ш*|щ*|ъ*|ы*|ь*|э*|ю*|я*)" ],
+      "rule" : [ "$regexp<^([А-Яа-яЁё]+(-[А-Яа-яЁё]+)*)( [А-Яа-яЁё]+(-[А-Яа-яЁё]+)*)*$>" ],
       "value" : ""
     } ]
   }, {
@@ -157,6 +175,82 @@
     "records" : [ {
       "type" : "pattern",
       "rule" : [ "{давай закончим}" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "classRule_1081",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "~конец" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "classRule_8884",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "~хватит" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "classRule_2827",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "~надоело" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "classRule_1057",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : false,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : true
+    },
+    "records" : [ {
+      "type" : "synonyms",
+      "rule" : [ "не буду", "не хочу", "устал" ],
       "value" : ""
     } ]
   } ],

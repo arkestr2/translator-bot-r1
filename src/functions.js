@@ -23,6 +23,7 @@ function getTranslations(word){
             if (meanings[i][j] == ";" || meanings[i][j] == ","){
               meanings.splice(i + 1, 0, meanings[i].substring(j + 1));
               meanings[i] = meanings[i].substring(0, j);
+              continue;
             }
         }
     }

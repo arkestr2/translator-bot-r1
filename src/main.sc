@@ -25,7 +25,7 @@ theme: /
     state: Compare
         intent: /check
         script:
-            var input = $parseTree._input;
+            var input = $parseTree._input.toLowerCase();
             $session.isInputCorrect = false;
             $session.translations = "";
             var meanings = getTranslations($session.currWord);
