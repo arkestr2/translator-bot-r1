@@ -2,25 +2,41 @@ function getRandomWord(){
     return WORDS[$jsapi.random(WORDS.length)]
 }
 
+function replaceChar(origString, replaceChar, index) {
+    var firstPart = origString.substr(0, index);
+    var lastPart = origString.substr(index + 1);
+    var newString = firstPart + replaceChar + lastPart;
+    
+    return newString;
+}
+
 function getTranslations(word){
     var meanings = $http.get("https://dictionary.skyeng.ru/api/public/v1/words/search?search=${word}&page=1&pageSize=1", {
             timeout: 10000,
             query:{
                 word: word
             }
-        }).data[0].meanings;
+        })
+    
+    if (!meanings.data) {
+        return meanings.data;
+    }
+    
+    meanings = meanings.data[0].meanings;
         
+    log("MEANINGS_FUNC");
     log(meanings);
     
     for (var i = 0; i < meanings.length; i++){
-        meanings[i] = meanings[i].translation.text;
+        meanings[i] = meanings[i].translation.text.toLowerCase();
     }
     
     for (var i = 0; i < Math.min(meanings.length, 5); i++){
-        log("---------------------------");
-        log(meanings[i]);
         for (var j = 0; j < meanings[i].length; j++){
-            if (meanings[i][j] == ";" || meanings[i][j] == ","){
+            if (meanings[i][j] == "ё") {
+                meanings[i] = replaceChar(meanings[i], "е", j);
+            }
+            if (meanings[i][j] == ";" || meanings[i][j] == ",") {
               meanings.splice(i + 1, 0, meanings[i].substring(j + 1));
               meanings[i] = meanings[i].substring(0, j);
               continue;
@@ -101,7 +117,6 @@ var WORDS = [
     "afford",
     "afraid",
     "African",
-    "African-American",
     "after",
     "afternoon",
     "again",
@@ -958,7 +973,6 @@ var WORDS = [
     "establishment",
     "estate",
     "estimate",
-    "etc",
     "ethics",
     "ethnic",
     "European",
@@ -2254,7 +2268,6 @@ var WORDS = [
     "restriction",
     "result",
     "retain",
-    "retire",
     "retirement",
     "return",
     "reveal",
@@ -2401,7 +2414,6 @@ var WORDS = [
     "shoot",
     "shooting",
     "shop",
-    "shopping",
     "shore",
     "short",
     "shortly",
@@ -2972,7 +2984,6 @@ var WORDS = [
     "works",
     "workshop",
     "world",
-    "worried",
     "worry",
     "worth",
     "would",

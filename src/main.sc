@@ -1,5 +1,5 @@
 require: slotfilling/slotFilling.sc
-  module = sys.zb-common
+    module = sys.zb-common
 
 require: common.js
     module = sys.zb-common
@@ -26,24 +26,38 @@ theme: /
         intent: /check
         script:
             var input = $parseTree._input.toLowerCase();
+            
+            log("INPUT");
+            log(input);
+            
+            $session.isServerDown = false;
             $session.isInputCorrect = false;
             $session.translations = "";
             var meanings = getTranslations($session.currWord);
-            log("__________________________");
-            log(meanings);
-            var limit = Math.min(5, meanings.length);
             
-            for(var i=0; i < limit; i++){
-                var currMeaning = meanings[i].trim().toLowerCase();
-                if (input === currMeaning){
-                    $session.isInputCorrect = true;
-                    break;
+            if (meanings){
+                log("MEANINGS_MAIN");
+                log(meanings);
+                var limit = Math.min(5, meanings.length);
+                
+                for(var i = 0; i < limit; i++){
+                    var currMeaning = meanings[i].trim();
+                    if (input === currMeaning) {
+                        $session.isInputCorrect = true;
+                        break;
+                    }
+                    
+                    log("TRANSLATIONS");
+                    log($session.translations);
+                    
+                    $session.translations += "\n" + (i + 1) + ". " + currMeaning;
                 }
-                log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                log($session.translations);
-                $session.translations += "\n" + (i + 1) + ". " + currMeaning;
+            } else {
+                $session.isServerDown = true;
             }
-        if: $session.isInputCorrect
+        if: $session.isServerDown
+            go!: /NoConnection
+        elseif: $session.isInputCorrect
             go!: Correct
         else: 
             go!: Wrong
@@ -63,7 +77,7 @@ theme: /
     state: NextWord
         script:
             $session.currWord = getRandomWord();
-        a: The next word is "{{$session.currWord}}"
+        a: The next word is "{{ $session.currWord }}"
         
     state: Result
         intent: /finish
@@ -73,5 +87,8 @@ theme: /
         
     state: NoMatch
         event!: noMatch
-        a: I don't think you typed a word or a phrase in russian. Your responce was "{{$request.query}}".
+        a: I don't think you typed a word or a phrase in russian. Your responce was "{{ $request.query }}".
             \nTry typing in the translation for the word "{{ $session.currWord }}".
+            
+    state: NoConnection
+        a: There are some server issues. Please try again later.
