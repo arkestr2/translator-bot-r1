@@ -87,7 +87,7 @@ theme: /
         
     state: NoMatch
         event!: noMatch
-        a: I don't think you typed a word or a phrase in russian. Your responce was "{{ $request.query }}".
+        a: I don't think you typed in a word or a phrase in russian. Your responce was "{{ $request.query }}".
             \nTry typing in the translation for the word "{{ $session.currWord }}".
             
     state: NoConnection
