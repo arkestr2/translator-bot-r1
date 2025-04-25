@@ -69,9 +69,9 @@ theme: /
         intent: /finish
         a: Correct answers: {{ $session.correctCount }}. 
             \nWrong answers: {{ $session.wrongCount }}.
-            \nGoodbye, see you later!
+            \n\nGoodbye, see you later!
         
     state: NoMatch
         event!: noMatch
-        a: I don't think you typed in a word or a phrase. Your responce was "{{$request.query}}".
+        a: I don't think you typed a word or a phrase in russian. Your responce was "{{$request.query}}".
             \nTry typing in the translation for the word "{{ $session.currWord }}".
