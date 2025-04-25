@@ -27,11 +27,11 @@ function getTranslations(word){
     log("MEANINGS_FUNC");
     log(meanings);
     
-    for (var i = 0; i < meanings.length; i++){
+    for (var i = 0; i < meanings.length; i++) {
         meanings[i] = meanings[i].translation.text.toLowerCase();
     }
     
-    for (var i = 0; i < Math.min(meanings.length, 5); i++){
+    for (var i = 0; i < Math.min(meanings.length, 5); i++) {
         for (var j = 0; j < meanings[i].length; j++){
             if (meanings[i][j] == "ё") {
                 meanings[i] = replaceChar(meanings[i], "е", j);
@@ -42,6 +42,10 @@ function getTranslations(word){
               continue;
             }
         }
+    }
+    
+    for (var i = 0; i < Math.min(meanings.length, 5); i++) {
+        meanings[i] = meanings[i].trim();
     }
     
     return meanings.filter(function(item, pos) {
@@ -1700,7 +1704,6 @@ var WORDS = [
     "mistake",
     "mix",
     "mixture",
-    "mm-hmm",
     "mode",
     "model",
     "moderate",
@@ -1803,7 +1806,6 @@ var WORDS = [
     "novel",
     "now",
     "nowhere",
-    "n't",
     "nuclear",
     "number",
     "numerous",

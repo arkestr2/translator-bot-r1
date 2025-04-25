@@ -25,7 +25,7 @@ theme: /
     state: Compare
         intent: /check
         script:
-            var input = $parseTree._input.toLowerCase();
+            var input = $parseTree._input.toLowerCase().replaceAll("ё","е");
             
             log("INPUT");
             log(input);
@@ -41,7 +41,7 @@ theme: /
                 var limit = Math.min(5, meanings.length);
                 
                 for(var i = 0; i < limit; i++){
-                    var currMeaning = meanings[i].trim();
+                    var currMeaning = meanings[i];
                     if (input === currMeaning) {
                         $session.isInputCorrect = true;
                         break;
