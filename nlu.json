@@ -27,7 +27,7 @@
     "enabled" : true,
     "shared" : false,
     "phrases" : [ {
-      "text" : "@Перевод"
+      "text" : "@Перевод "
     } ],
     "classificationRules" : {
       "refs" : [ {
@@ -144,7 +144,7 @@
     },
     "records" : [ {
       "type" : "pattern",
-      "rule" : [ "$regexp<^([А-Яа-яЁё -])*$>" ],
+      "rule" : [ "$regexp<^([А-я- ]+)$>" ],
       "value" : ""
     } ]
   } ],
