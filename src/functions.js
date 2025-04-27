@@ -2703,7 +2703,6 @@ var WORDS = [
     "thank",
     "thanks",
     "that",
-    "the",
     "theater",
     "their",
     "them",
